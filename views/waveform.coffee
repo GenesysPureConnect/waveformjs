@@ -43,8 +43,10 @@ window.Waveform = class Waveform
     @clear()
     if typeof(@innerColor) == "function"
       @context.fillStyle = @innerColor()
+      @context.strokeStyle = @innerColor()
     else
       @context.fillStyle = @innerColor
+      @context.strokeStyle = @innerColor
     middle = @height / 2
     i = 0
     for d in @data
@@ -53,6 +55,10 @@ window.Waveform = class Waveform
       @context.clearRect t*i, middle - middle * d, t, (middle * d * 2)
       @context.fillRect t*i, middle - middle * d, t, middle * d * 2
       i++
+    @context.beginPath();
+    @context.moveTo(0, middle);
+    @context.lineTo(this.width, middle);
+    @context.stroke();
 
   clear: ->
     @context.fillStyle = @outerColor
